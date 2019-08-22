@@ -1,6 +1,11 @@
 # react-curso
 Curso de React; abarcando los temas más esenciales.
 
+Descarga NPM y Node JS: https://www.npmjs.com/get-npm (v10.16.3 LTS)
+
+Instala expressJS y Nodemon:
+`sudo npm install express nodemon --save`
+
 ##### Javascript: Introducción
   * Pequeña Historia de Javascript para no aburrir
   * Variables (diferencias entre let, const, var ) y window

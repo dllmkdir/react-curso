@@ -141,5 +141,19 @@ console.log(botones)
 Array.from(botones).map((boton,key)=>{
     boton.innerHTML = "YEAH " + key
 })
+//LISTENERS
+
+Array.from(botones).map((boton)=>{
+    boton.addEventListener('click',(e)=>{
+        //prevent creating default actions
+        e.preventDefault()
+        //prevent other listeners from executing
+        e.stopPropagation()
+        alert(e.target.innerHTML)
+    } )
+})
+document.getElementById("titulo").addEventListener('mouseenter',(e)=>{
+    console.log(e.target.innerHTML)
+})
 
 

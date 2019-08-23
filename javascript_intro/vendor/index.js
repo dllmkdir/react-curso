@@ -66,7 +66,7 @@ for (let i = 0; i < arregloGenial.length; i++) {
 let suma= 0
 let i=0
 while(suma<21){
-    suma += suma + arregloGenial[i]
+    suma += arregloGenial[i]
     i+=1
 }
 console.log("while terminado! la suma es : "+suma)
@@ -82,3 +82,24 @@ function funcionSuma(a,b){
     return a+b
 }
 console.log(funcionSuma(2,3))
+
+// El uso de los tres puntos
+// operador de propagación, utilizado para intervenir en objetos que se pueden convertir en listas o son listas per se
+
+function funcionSumaLista(...lista){
+    let suma =0
+    for (let i = 0; i < lista.length; i++) {
+        suma =suma + lista[i];
+       
+    }
+    return suma
+}
+console.log(funcionSumaLista(1,2,3,4,5,6,7))
+const listaAndidada = ["esponja","pantalones"]
+const listaGeneral = ["bob",...listaAndidada, "cuadrados"]
+console.log(listaGeneral)
+
+
+console.log(2=="2")
+console.log(2==="2")
+console.log('' == 0)

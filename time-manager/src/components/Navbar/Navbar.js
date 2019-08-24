@@ -29,10 +29,10 @@ function Navbar() {
         </Link>
       </Menu.Item>
 
-      <Menu.Item key="timer">
-        <Link to="/timer">
-          <Icon type="hourglass" />
-          Timer
+      <Menu.Item key="todo">
+        <Link to="/todo">
+          <Icon type="unordered-list" />
+          ToDo List
         </Link>
       </Menu.Item>
     </Menu>

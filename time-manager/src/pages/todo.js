@@ -1,14 +1,14 @@
 import React from "react"
 import { Menu, Icon } from "antd"
 import Layout from "../components/Layout/Layout"
-
-//Timer page
-function Timer() {
+import { Empty } from "antd"
+//Todo page
+function Todo() {
   return (
     <Layout>
-      <p>Timer</p>
+      <p>Todo</p>
     </Layout>
   )
 }
 
-export default Timer
+export default Todo

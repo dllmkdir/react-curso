@@ -1,4 +1,3 @@
-
 //Cover List Context Declaration
 import React, { useReducer } from "react"
 const initState = {
@@ -9,6 +8,7 @@ const initState = {
 //create reducer for state management
 const reducer = (state, action) => {
   let toDoTemp
+  let toDoListTemp
   switch (action.type) {
     case "add":
       //   console.log(state.photoDict)
@@ -19,30 +19,34 @@ const reducer = (state, action) => {
       //     ...state,
       //     photoDict: { ...state.photoDict, [photoTemp]: [] },
       //   }
-      console.log(action.toDo)
       return {
         ...state,
         toDoList: [...state.toDoList, action.toDo],
       }
+    case "edit":
+      toDoListTemp = state.toDoList
+      toDoListTemp[action.id] = action.value
+      return { ...state, toDoList: toDoListTemp }
+
     case "reset":
       //console.log("reset!")
       return { ...state, toDoList: [] }
     // remove using the id and the row
     case "remove":
+      console.log("remove")
       // dummy object to remove the specified id
       // eslint-disable-next-line
-      toDoTemp = action.row.toString()
-      let toDoList = Object.assign([], state.toDoList[toDoTemp])
-      for (let i = toDoList.length - 1; i >= 0; i--) {
-        if (toDoList[i].id == action.id) {
-          toDoList.splice(i, 1)
+      toDoListTemp = Object.assign([], state.toDoList)
+      for (let i = toDoListTemp.length - 1; i >= 0; i--) {
+        if (i == action.id) {
+          toDoListTemp.splice(i, 1)
         }
       }
       //reset all to prevent duplicate images
 
       return {
         ...state,
-        toDoList: { ...state.toDoList, [toDoTemp]: [...toDoList] },
+        toDoList: [...toDoListTemp],
       }
 
     //default, do nothing

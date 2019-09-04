@@ -1,19 +1,33 @@
 import React, { useState, useContext, useEffect, useRef } from "react"
-import { Menu, Icon, InputNumber, Button, Typography, Spin } from "antd"
+import {
+  Menu,
+  Icon,
+  InputNumber,
+  Button,
+  Typography,
+  Spin,
+  notification,
+} from "antd"
+
 import { Link } from "react-router-dom"
 import { CountdownContext } from "../Countdown/CountdownContext"
-const { Text } = Typography
+const { Text, Title } = Typography
 function Countdown() {
   //own seconds and own minutes
-  const [minutes, setMinutes] = useState(0)
-  const [seconds, setSeconds] = useState(0)
   const [loading, setLoading] = useState(false)
   const [countdown, setCountdown] = useState(false)
   const [delay, setDelay] = useState(null)
+  const [time, setTime] = useState("")
   const { timerState, dispatch } = useContext(CountdownContext)
   useInterval(() => {
     dispatch({ type: "decrease" })
   }, delay)
+  const handleNotification = () => {
+    notification.open({
+      message: "Stopwatch Notification",
+      description: "Stopwatch Has finished!",
+    })
+  }
   //handle Countdown
   const handleCountdown = () => {
     //first, set the local countdown to paint the minutes and seconds in screen
@@ -27,22 +41,31 @@ function Countdown() {
     if (timerState.active) {
       //first create  a loading state:
       setLoading(true)
+      setCountdown(false)
       setTimeout(async function() {
         setLoading(false)
         handleCountdown()
       }, 3000)
     }
   }, [timerState.active])
+  //up`date time in correct format
+  useEffect(() => {
+    let { minutes, seconds } = timerState
+    let timeStr = minutes < 10 ? "0" + minutes : minutes
+    timeStr += ":"
+    timeStr += seconds < 10 ? "0" + seconds : seconds
+    setTime(timeStr)
+  }, [timerState.minutes, timerState.seconds])
   //   if countdown has finished, then deactivate the chronometer
   useEffect(() => {
     //   destructuring for minutes and seconds
     let { minutes, seconds } = timerState
-    if (minutes <= 0 && seconds <= 0) {
+    if (countdown && minutes <= 0 && seconds <= 0) {
       dispatch({ type: "deactivate" })
       setDelay(null) // set delay to null in order to clear interval
-      console.log("The timer has finished!")
+      handleNotification()
     }
-  }, [timerState.minutes, timerState.seconds])
+  }, [timerState.minutes, timerState.seconds, countdown])
   return (
     <div style={{ display: "block", margin: "0 auto", padding: "1em" }}>
       {loading && (
@@ -53,7 +76,9 @@ function Countdown() {
       )}
       {/* Set countdown numbers */}
       {countdown && (
-        <Text>{`${timerState.minutes}:${timerState.seconds}`}</Text>
+        <Title level={1} style={{ fontSize: "9rem", textAlign: "center" }}>
+          {time}
+        </Title>
       )}
     </div>
   )

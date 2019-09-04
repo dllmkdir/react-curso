@@ -2,11 +2,14 @@ import React, { useState, useContext, useEffect } from "react"
 import { Menu, Icon, InputNumber, Button, Typography } from "antd"
 import { Link } from "react-router-dom"
 import { CountdownContext } from "../Countdown/CountdownContext"
+import Moment from "react-moment"
 const { Text } = Typography
+
 // navbar component
 function Timer() {
   const [minutes, setMinutes] = useState(0)
   const [seconds, setSeconds] = useState(0)
+  const [time, setTime] = useState("")
   const handleMinutes = e => {
     if (e && e <= 59) {
       setMinutes(e)
@@ -18,6 +21,13 @@ function Timer() {
       setSeconds(e)
     }
   }
+  //up`date time in correct format
+  useEffect(() => {
+    let timeStr = minutes < 10 ? "0" + minutes : minutes
+    timeStr += ":"
+    timeStr += seconds < 10 ? "0" + seconds : seconds
+    setTime(timeStr)
+  }, [minutes, seconds])
   const handleSubmit = e => {
     e.preventDefault()
     // create active chronometer
@@ -41,7 +51,7 @@ function Timer() {
     <div style={{ display: "block", margin: "0 auto", padding: "1em" }}>
       <div style={{ display: "flex", justifyContent: "center" }}>
         <InputNumber
-          style={{ margin: "1em", border: "none" }}
+          style={{ margin: "1em", border: "none", marginLeft: "56px" }}
           size="large"
           min={0}
           max={100}
@@ -62,10 +72,10 @@ function Timer() {
           onChange={handleSeconds}
         />
       </div>
-      <div style={{ display: "flex", justifyContent: "center" }}>
-        {`${minutes}:${seconds}`}
-      </div>
+      <div style={{ display: "flex", justifyContent: "center" }}>{time}</div>
+
       <Button
+        disabled={timerState.active}
         style={{ display: "block", margin: "0 auto" }}
         onClick={handleSubmit}
         type="primary"

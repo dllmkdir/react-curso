@@ -3,8 +3,6 @@ Curso de React; abarcando los temas más esenciales.
 
 Descarga NPM y Node JS: https://www.npmjs.com/get-npm (v10.16.3 LTS)
 
-Instala expressJS y Nodemon:
-`sudo npm install express nodemon --save`
 
 ##### Javascript: Introducción
   * Pequeña Historia de Javascript para no aburrir
@@ -59,4 +57,28 @@ Instala expressJS y Nodemon:
   * Interfaces
   * Require
   * Constructor
-##### Ejemplo práctico	con Gatsby
+##### Frameworks, y el estado actual de Javascript
+##### Ejemplo práctico	con Gatsby y Django REST API
+##### Ejemplo práctico	con NextJS y Firebase Real Time Database
+
+
+#Comandos útiles
+## Javascript intro
+`npm init`
+Instala expressJS y Nodemon:
+`sudo npm install express nodemon --save`
+Corre Nodemon de manera local:
+`npx nodemon index.js`
+## Time Manager
+Instala Yarn para Mac OS:
+`brew install yarn`
+Instalador para Windows:
+`https://yarnpkg.com/es-ES/docs/install#windows-stable`
+
+## Blogger
+Starter para Gatsby y Typescript:
+`sudo gatsby new blogger https://github.com/charlie632/gatsby-basic-ts-starter`
+`sudo yarn`
+`sudo yarn add axios @material-ui/icons @material-ui/styles @material-ui/core`
+`yarn start`
+

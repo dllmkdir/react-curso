@@ -5,8 +5,8 @@ import { CountdownContext } from "../Countdown/CountdownContext"
 import Moment from "react-moment"
 const { Text } = Typography
 
-// navbar component
-function Timer() {
+// Timer Arrow Functional Component
+const Timer = () => {
   const [minutes, setMinutes] = useState(0)
   const [seconds, setSeconds] = useState(0)
   const [time, setTime] = useState("")

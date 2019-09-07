@@ -1,10 +1,10 @@
 import React, { useReducer } from "react"
-interface UserController {
-    name: string
+interface MarkdownEditorController {
+    description: string
     dispatch: any
 }
-const initState: UserController = {
-    name: '',
+const initState: MarkdownEditorController = {
+    description: '',
     dispatch: null,
 }
 //create reducer for state management
@@ -13,11 +13,11 @@ const reducer = (state, action) => {
         case "set":
             return {
                 ...state,
-                name: action.name
+                description: action.description
             }
         case "reset":
             //console.log("reset!")
-            return { ...state, name: '' }
+            return { ...state, description: '' }
         //default, do nothing
         default:
             return { ...state }
@@ -25,17 +25,17 @@ const reducer = (state, action) => {
 }
 
 //create context with initial conditions
-const UserContext = React.createContext<UserController>(initState)
+const MarkdownEditorContext = React.createContext<MarkdownEditorController>(initState)
 //Provider Init
-const UserProvider: React.FC = ({ children }) => {
+const MarkdownEditorProvider: React.FC = ({ children }) => {
     //use Reducer
     const [state, dispatch] = useReducer(reducer, initState)
     return (
-        <UserContext.Provider value={{ name: state.name, dispatch }}>
+        <MarkdownEditorContext.Provider value={{ description: state.description, dispatch }}>
             {/* Provider Wrapper, everything inside will be in further context */}
             {children}
-        </UserContext.Provider>
+        </MarkdownEditorContext.Provider>
     )
 }
 //Export conext and provider
-export { UserContext, UserProvider }
+export { MarkdownEditorContext, MarkdownEditorProvider }

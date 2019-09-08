@@ -3,7 +3,7 @@ import { useStyles } from "./styles"
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import { Typography, Button } from "@material-ui/core";
+import { Typography } from "@material-ui/core";
 import Moment from 'react-moment';
 import ReactMarkdown from 'react-markdown'
 interface LayoutProps {

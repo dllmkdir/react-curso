@@ -1,10 +1,10 @@
-import React, { useContext, useState } from "react"
+import React, { useContext, useState, useEffect } from "react"
 import 'date-fns'
 import DateFnsUtils from '@date-io/date-fns';
 //importamos navbar
 import { useStyles } from "./styles"
 import { PostDialogContext } from './PostDialogContext'
-import { Dialog, DialogTitle, DialogContent, DialogContentText, TextField, DialogActions, Button, CircularProgress } from "@material-ui/core"
+import { Dialog, DialogTitle, DialogContent, DialogContentText, TextField, DialogActions, Button, CircularProgress, LinearProgress } from "@material-ui/core"
 //se utilizan los pickers de material ui
 import {
     MuiPickersUtilsProvider,
@@ -23,9 +23,9 @@ const PostDialog: React.FC<PostDialogProps> = () => {
     //loading hook
     const [loading, setLoading] = useState(false)
     //hook for date, set the date of today
-    const [date, setDate] = useState(new Date('2014-08-18T21:11:54'))
+    const [date, setDate] = useState(new Date())
     const { active, dispatch: dialogDispatch } = useContext(PostDialogContext)
-    const { description } = useContext(MarkdownEditorContext)
+    const { description, dispatch: descriptionDispatch } = useContext(MarkdownEditorContext)
     // @ts-ignore
     const classes = useStyles()
     const handleClose = () => {
@@ -48,6 +48,8 @@ const PostDialog: React.FC<PostDialogProps> = () => {
     }
     //handle Submit in order to upload it to axios
     const handleSubmit = () => {
+        //check that description, location and title is not empty
+        if (title.length == 0 || description.length == 0 || location.length == 0) return
         setLoading(true)
         //remember to stringify the date
         let info = {
@@ -58,9 +60,18 @@ const PostDialog: React.FC<PostDialogProps> = () => {
         }
         console.log(info)
         axios.post(`https://reactcurso.herokuapp.com/api/blog/`, info).then(res => {
-            setLoading(false)
+
             setTimeout(() => {
-                window.location.href = '/'
+                //if we are in the root directory, the reload all the posts,
+                //launch the signal
+                setLoading(false)
+                if (window.location.pathname == '/') {
+                    dialogDispatch({ type: 'submit', submit: true })
+                } else {
+                    //if not go to the root url
+                    window.location.href = '/'
+                }
+
             }, 1000)
 
         }).catch(err => {
@@ -69,8 +80,17 @@ const PostDialog: React.FC<PostDialogProps> = () => {
         })
 
     }
+    //do a cleanup after we dissapear the input
+    useEffect(() => {
+        return () => {
+            setLocation('')
+            setTitle('')
+            descriptionDispatch({ type: 'reset' })
+        };
+    }, [])
     return (
-        <Dialog open={active || false} onClose={handleClose} aria-labelledby="form-dialog-title" maxWidth={'sm'} fullWidth={true}>
+        <Dialog open={active || false} onClose={handleClose} aria-labelledby="form-dialog-title" maxWidth={'md'} fullWidth={true}>
+            {loading && <LinearProgress />}
             <DialogTitle id="form-dialog-title">Agregar Blog</DialogTitle>
             <DialogContent>
                 <TextField
@@ -121,15 +141,17 @@ const PostDialog: React.FC<PostDialogProps> = () => {
                     />
                 </MuiPickersUtilsProvider>
             </DialogContent>
+
             <DialogActions>
-                <Button onClick={handleClose} color="primary">
+                <Button onClick={handleClose} className={classes.button} color="primary">
                     Cancel
-          </Button>
-                <Button onClick={handleSubmit} color="primary">
+                </Button>
+                <Button onClick={handleSubmit} className={classes.button} color="primary">
                     Create
-          </Button>
-                {loading && <CircularProgress className={classes.progress} />}
+                </Button>
+
             </DialogActions>
+
         </Dialog>
     )
 }

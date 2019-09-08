@@ -1,7 +1,7 @@
 import { makeStyles } from "@material-ui/core/styles"
 export const useStyles = makeStyles((theme: any) => ({
     root: {
-        backgroundColor: '#262626',
+        backgroundColor: '#1A1423',
         color: 'white'
     },
     title: {
@@ -15,7 +15,7 @@ export const useStyles = makeStyles((theme: any) => ({
         textDecoration: 'none',
         transition: '0.5s all',
         '&:hover': {
-            color: '#4392F1'
+            color: '#5BC0EB'
         }
     },
     scroller: {

@@ -4,7 +4,6 @@ import { useStyles } from "./styles"
 import Button from '@material-ui/core/Button';
 import { UserContext } from './UserContext'
 import Snackbar from '@material-ui/core/Snackbar';
-import SnackbarContent from '@material-ui/core/SnackbarContent';
 import CloseIcon from '@material-ui/icons/Close';
 import { IconButton } from "@material-ui/core";
 interface UserFormProps { }

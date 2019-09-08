@@ -1,16 +1,9 @@
-import React, { useEffect, useState } from "react"
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
-import AccountCircle from '@material-ui/icons/AccountCircle';
+import React, { useEffect, useState, useContext } from "react"
 import { useStyles } from "./styles"
-import MenuItem from '@material-ui/core/MenuItem';
-import Menu from '@material-ui/core/Menu';
-import { Paper, CircularProgress } from "@material-ui/core";
+import { CircularProgress } from "@material-ui/core";
 import axios from "axios"
 import Post from '../Post/index'
+import { PostDialogContext } from "../PostDialog/PostDialogContext";
 //se declara el contenedor en el cual se va a tener toda la información de todos los posts
 //es importante conocer que estos posts serán accedidos a través de axios
 interface PostboxProps { }
@@ -18,6 +11,7 @@ interface PostboxProps { }
 const Postbox: React.FC<PostboxProps> = () => {
   // @ts-ignore
   const classes = useStyles()
+  const { submit, dispatch: dialogDispatch } = useContext(PostDialogContext)
   //hook for posts
   const [blog, setBlog] = useState([])
   const [loaded, setLoaded] = useState(false)
@@ -42,6 +36,30 @@ const Postbox: React.FC<PostboxProps> = () => {
       setLoaded(true)
     }
   }, [blog])
+  //check if use Effect is true, then reload the page and set the submit value to false
+  useEffect(() => {
+    if (submit) {
+      dialogDispatch({ type: 'set', active: false })
+      setBlog([])
+    }
+  }, [submit])
+  //check if the blog has beeen emptied, then retrieve all the info again
+  useEffect(() => {
+    if (submit && blog.length == 0 && loaded) {
+      setLoaded(false)
+      axios
+        .get(`https://reactcurso.herokuapp.com/api/blog/`)
+        .then(res => {
+          //Set timeoute to wait a little more for the data
+          setTimeout(function () {
+            console.log(res.data)
+            setBlog(res.data)
+          }, 1000)
+
+          //do something with the incoming response,
+        })
+    }
+  }, [submit, blog])
   return (
     //Se utiliza la documentaciónk de material ui para generar la app bar:
     //https://material-ui.com/components/app-bar/

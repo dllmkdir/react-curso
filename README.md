@@ -62,23 +62,60 @@ Descarga NPM y Node JS: https://www.npmjs.com/get-npm (v10.16.3 LTS)
 ##### Ejemplo práctico	con NextJS y Firebase Real Time Database
 
 
-#Comandos útiles
-## Javascript intro
+# Comandos útiles
+## Javascript intro(ExpressJS)
+
 `npm init`
+
 Instala expressJS y Nodemon:
+
 `sudo npm install express nodemon --save`
+
 Corre Nodemon de manera local:
+
 `npx nodemon index.js`
-## Time Manager
+
+## Time Manager (ReactJS)
 Instala Yarn para Mac OS:
+
 `brew install yarn`
+
 Instalador para Windows:
+
 `https://yarnpkg.com/es-ES/docs/install#windows-stable`
 
-## Blogger
-Starter para Gatsby y Typescript:
+## Blogger: Starter para Gatsby y Typescript:
+
 `sudo gatsby new blogger https://github.com/charlie632/gatsby-basic-ts-starter`
-`sudo yarn`
-`sudo yarn add axios @material-ui/icons @material-ui/styles @material-ui/core`
+
+`yarn`
+
+`yarn add axios @material-ui/icons @material-ui/styles @material-ui/core`
+
 `yarn start`
+
+## Instagreat (NextJS and Typescript)
+
+`mkdir instagreat`
+
+`cd instagreat`
+
+`yarn`
+
+`yarn add react react-dom next typescript @types/react @types/react-dom @types/node`
+
+Add this to to package.json:
+
+`"scripts": {
+    "dev": "next",
+    "build": "next build",
+    "start": "next start"
+  },
+  `
+  
+Create pages/index.tsx and add a new component
+
+`yarn run dev`
+
+
 

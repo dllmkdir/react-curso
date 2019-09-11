@@ -3,6 +3,8 @@ Curso de React; abarcando los temas más esenciales.
 
 Descarga NPM y Node JS: https://www.npmjs.com/get-npm (v10.16.3 LTS)
 
+Para usuarios de Mac, es mejor iniciar Visual Studio Code con:
+`sudo code`
 
 ##### Javascript: Introducción
   * Pequeña Historia de Javascript para no aburrir

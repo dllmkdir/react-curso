@@ -1,23 +1,21 @@
 import React from "react"
 import { makeStyles } from "@material-ui/core/styles"
 import Layout from '../components/Layout/index'
-import PhotoBox from '../components/PhotoBox/index'
 //creamos estructura clásica de typescript
-interface HomeProps { }
+interface ChatProps { }
 const useStyles = makeStyles((theme: any) => ({
 
 }))
-const Home: React.FC<HomeProps> = () => {
+const Chat: React.FC<ChatProps> = () => {
     // @ts-ignore
     const classes = useStyles()
     return (
         <Layout>
             <div>
-                Home
+                Chat
             </div>
-            <PhotoBox />
         </Layout>
     )
 }
 
-export default Home
+export default Chat

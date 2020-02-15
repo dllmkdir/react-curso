@@ -14,7 +14,7 @@
     "react-router-dom": "^5.0.1",
     "react-scripts": "3.1.1",
     "set-value": "^3.0.1",
-    "yarn": "^1.17.3"
+    "yarn": "^1.22.0"
   },
   "scripts": {
     "start": "react-scripts start",

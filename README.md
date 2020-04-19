@@ -6,6 +6,9 @@ Descarga NPM y Node JS: https://www.npmjs.com/get-npm (v10.16.3 LTS)
 Para usuarios de Mac, es mejor iniciar Visual Studio Code con:
 `sudo code`
 
+https://docs.google.com/presentation/d/1ufEHXQThJ3bK4XWowBq4Lktsn6gc7QP-v01J8RBkQoQ/edit#slide=id.p
+https://docs.google.com/presentation/d/1MmohPIohh6ioC44T-1MmsmBc5DxPNK8_hO452zOovVU/edit#slide=id.p
+
 ##### Javascript: Introducción
   * Pequeña Historia de Javascript para no aburrir
   * Variables (diferencias entre let, const, var ) y window

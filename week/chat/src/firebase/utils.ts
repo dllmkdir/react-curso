@@ -27,7 +27,7 @@ export const createMessage = async (msg) => {
 }
 
 export const databaseListener = (callback) => {
-    db.ref('chat').startAt(firsCount).on('child_added', (snapshot) => {
+    db.ref('chat/').on('child_added', (snapshot) => {
         console.log(snapshot)
         let newMsg = snapshot.val()
         newMsg.published = newMsg.published.replace(/\"/g, '')

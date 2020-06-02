@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
-import { Typography } from '@material-ui/core'
+import { Typography, Paper, Grid } from '@material-ui/core'
 import { useStyles } from './styles'
 import Moment from 'react-moment';
+
 export interface MessageType {
     content: string
     user: string
@@ -15,15 +16,22 @@ const Message = ({ message }: { message: MessageType }) => {
         e.preventDefault()
         setMsg(e.target.value)
     }
+    // @ts-ignore
+    const classes = useStyles()
     return (
-        <div>
-            <img src={message.photoURL} style={{ width: 70, height: 70, borderRadius: 40 }} />
-            <Typography>{message.content}</Typography>
-            <Typography>{message.user}</Typography>
-            <Moment fromNow>{message.published.replace("\"", '')}</Moment>
-            <Typography></Typography>
-            <hr />
-        </div>
+        <Paper style={{ padding: 20, marginTop: 10, boxShadow: 'none' }}>
+            <Grid container alignItems="center">
+                <img src={message.photoURL} style={{ width: 25, height: 25, borderRadius: 25 }} />
+                <Typography className={classes.text} style={{ marginLeft: 10, fontSize: 12 }}>{message.user}</Typography>
+
+                <Typography className={classes.text} style={{ marginLeft: 10, fontSize: 12 }}>
+                    <Moment fromNow>{message.published.replace("\"", '')}</Moment>
+                </Typography>
+            </Grid>
+            <Grid style={{ marginTop: 10 }}>
+                <Typography className={classes.text}>{message.content}</Typography>
+            </Grid>
+        </Paper>
     )
 }
 export default Message

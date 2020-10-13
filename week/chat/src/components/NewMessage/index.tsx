@@ -1,8 +1,5 @@
-import React, { useState, useContext } from 'react'
-import Button from '@material-ui/core/Button'
+import React, { useState, useContext,useEffect } from 'react'
 import { useStyles } from './styles'
-import { db } from '../../firebase/firebase'
-import MessageType from '../Message'
 import { createMessage } from '../../firebase/utils'
 import { UserContext } from '../User/UserContext'
 import { FilledInput, IconButton, Grid, CircularProgress } from '@material-ui/core'
@@ -15,7 +12,24 @@ const NewMessage = () => {
         e.preventDefault()
         setMsg(e.target.value)
     }
+    useEffect(() => {
+        // First we get the viewport height and we multiple it by 1% to get a value for a vh unit
+        let vh = window.innerHeight * 0.01
+        // Then we set the value in the --vh custom property to the root of the document
+        document.documentElement.style.setProperty("--vh", `${vh}px`)
+        const resizeEvent = () => {
+          // We execute the same script as before
+          let vh = window.innerHeight * 0.01
+          document.documentElement.style.setProperty("--vh", `${vh}px`)
+        }
+        // We listen to the resize event
+        window.addEventListener("resize", resizeEvent)
+        return () => {
+          window.removeEventListener("resize", resizeEvent)
+        }
+      }, [])
     const sendMessage = async (e: any) => {
+        if(!msg) return
         setLoading(true)
         e.preventDefault()
         const msgTemp = {
@@ -29,6 +43,11 @@ const NewMessage = () => {
         setLoading(false)
 
     }
+    const handleEnter=(e)=>{
+        if(e.key==='Enter'){
+            sendMessage(e)
+        }
+    }
     // @ts-ignore
     const classes = useStyles()
     return (
@@ -39,6 +58,7 @@ const NewMessage = () => {
                 inputProps={{
                     className: classes.inputProp
                 }}
+                onKeyUp={handleEnter}
             />
             <IconButton onClick={sendMessage} style={{ marginLeft: '10px' }}>
                 {loading ?
@@ -46,8 +66,6 @@ const NewMessage = () => {
                     :
                     <SendIcon />
                 }
-
-
             </IconButton>
         </Grid>
     )

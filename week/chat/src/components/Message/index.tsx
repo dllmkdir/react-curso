@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Typography, Paper, Grid } from '@material-ui/core'
 import { useStyles } from './styles'
 import Moment from 'react-moment';
+import {emojify} from 'react-emojione';
 
 export interface MessageType {
     content: string
@@ -29,7 +30,7 @@ const Message = ({ message }: { message: MessageType }) => {
                 </Typography>
             </Grid>
             <Grid style={{ marginTop: 10 }}>
-                <Typography className={classes.text}>{message.content}</Typography>
+                <Typography className={classes.text}>{emojify(message.content)}</Typography>
             </Grid>
         </Paper>
     )

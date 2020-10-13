@@ -23,13 +23,13 @@ const App = ({
 
   if (loading) {
     return (
-      <Grid container justify="center" alignItems="center" style={{ width: '100vw', height: '100vh', backgroundColor: '#fafafa' }}>
+      <Grid container justify="center" alignItems="center" style={{ width: '100vw', height: 'calc(var(--vh, 1vh) * 100)', backgroundColor: '#fafafa' }}>
         <CircularProgress style={{ color: '#424242', fontSize: 20 }} />
       </Grid>)
   }
   if (!user) {
     return (
-      <Grid container justify="center" alignItems="center" style={{ width: '100vw', height: '100vh', backgroundColor: '#fafafa' }}>
+      <Grid container justify="center" alignItems="center" style={{ width: '100vw', height: 'calc(var(--vh, 1vh) * 100)', backgroundColor: '#fafafa' }}>
         <Paper style={{
           boxShadow: 'none',
           backgroundColor: 'transparent',

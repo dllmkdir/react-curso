@@ -12,6 +12,7 @@ const ChatBox = () => {
     useEffect(() => {
         const callMsgDb = async () => {
             let msgList = await getMessages()
+            setLoaded(true)
             // sort by date
             msgList.sort((a, b) => {
                 const firstDate = new Date(a.published.replace(/\"/g, ''))
@@ -22,10 +23,7 @@ const ChatBox = () => {
         }
         const triggerNewMsgs = async () => {
             databaseListener((newMsg) => {
-
                 setMsgs(l => [...l, newMsg])
-
-
             })
         }
         callMsgDb()
@@ -33,17 +31,17 @@ const ChatBox = () => {
     }, [])
     useEffect(() => {
         if (msgs) {
-            setLoaded(true)
-            if (msgs.length > 0) {
+            
+            if (msgs.length > 0 && loaded) {
                 let objDiv = document.getElementById("chat-box");
                 console.log(objDiv)
                 objDiv.scrollTop = objDiv.scrollHeight;
             }
         }
-    }, [msgs])
+    }, [msgs,loaded])
     if (!loaded) {
         return (
-            <Grid container justify="center" alignItems="center" style={{ width: '100vw', height: 'calc(100vh - 135px)', backgroundColor: '#fafafa', maxWidth: '600px', margin: '0 auto' }}>
+            <Grid container justify="center" alignItems="center" style={{ width: '100vw', height: 'calc(calc(var(--vh, 1vh) * 100) - 135px)', backgroundColor: '#fafafa', maxWidth: '600px', margin: '0 auto' }}>
                 <CircularProgress style={{ color: '#424242', fontSize: 20 }} />
             </Grid>
         )
@@ -51,7 +49,8 @@ const ChatBox = () => {
     return (
         <div>
             {(msgs && msgs.length > 0) &&
-                <Grid container id="chat-box" justify="center" alignItems="center" style={{ width: '100vw', height: 'calc(100vh - 135px)', backgroundColor: '#fafafa', maxWidth: '600px', margin: '0 auto', overflow: 'scroll' }}>
+                <Grid container id="chat-box" justify="center" alignItems="center" style={{ width: '100vw', height: 'calc(calc(var(--vh, 1vh) * 100) - 135px)', backgroundColor: '#fafafa', maxWidth: '600px', margin: '0 auto', overflow: 'scroll' }}>
+                    
                     <Grid container justify="flex-end" style={{ width: '100vw', flexDirection: 'column' }}>
                         {msgs && msgs.map((msg, key) => (
                             <Message key={key} message={msg} />
@@ -63,7 +62,7 @@ const ChatBox = () => {
                 </Grid>
             }
             {(msgs && msgs.length === 0) &&
-                <Grid container justify="center" alignItems="center" style={{ width: '100vw', height: 'calc(100vh - 135px)', backgroundColor: '#fafafa', maxWidth: '600px', margin: '0 auto' }}>
+                <Grid container justify="center" alignItems="center" style={{ width: '100vw', height: 'calc(calc(var(--vh, 1vh) * 100) - 135px)', backgroundColor: '#fafafa', maxWidth: '600px', margin: '0 auto' }}>
                     <Paper style={{
                         boxShadow: 'none',
                         backgroundColor: 'transparent',
